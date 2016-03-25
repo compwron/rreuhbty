@@ -1,15 +1,15 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  def create
+
+  def index
+    @users = User.all
   end
 
-  def update
-    if user_signed_in?
-      p "YAYYYY!"
-      42
+  def show
+    @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to :back, :alert => "Access denied."
     end
   end
 
-  def delete
-  end
 end
